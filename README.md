@@ -28,5 +28,5 @@
 - [License](#license)
 - 
 
-## Train
-### python -m src.datasets.prepare --config configs/data.yaml
+## training
+###### python -m src.datasets.prepare --config configs/data.yaml
