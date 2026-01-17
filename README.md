@@ -29,4 +29,4 @@
 - 
 
 ## training
-<python -m src.datasets.prepare --config configs/data.yaml>
+python test_unistpred.py --config configs/config_pems.yaml
