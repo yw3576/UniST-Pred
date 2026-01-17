@@ -16,8 +16,6 @@ python test_unistpred.py --config configs/config_pems.yaml
 
 Configs are stored in `configs/` (YAML/JSON). Typical sections include:
 
-- `model`: architecture, hidden sizes, dropout
-- `data`: paths, transforms, batching
-- `train`: optimizer, learning-rate schedule, epochs, mixed precision
-- `eval`: metrics, thresholds
-- `system`: device, `num_workers`, deterministic flags
+- `model`: architecture
+- `data`: sequence length, target length, nodes
+- `train`: learning-rate schedule, epochs, batch size
