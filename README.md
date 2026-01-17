@@ -27,3 +27,6 @@
 - [Citation](#citation)
 - [License](#license)
 - 
+
+## Train
+### python -m src.datasets.prepare --config configs/data.yaml
