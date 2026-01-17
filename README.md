@@ -29,4 +29,4 @@
 - 
 
 ## training
-##### python -m src.datasets.prepare --config configs/data.yaml
+<python -m src.datasets.prepare --config configs/data.yaml>
