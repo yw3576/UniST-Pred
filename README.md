@@ -6,5 +6,18 @@
 - **Dataset:** <name + short description>
 - **License:** <MIT / Apache-2.0 / Proprietary>
 
-## training
+## Train
 python test_unistpred.py --config configs/config_pems.yaml
+## Evaluate
+
+## Data
+
+## Configuration
+
+Configs are stored in `configs/` (YAML/JSON). Typical sections include:
+
+- `model`: architecture, hidden sizes, dropout
+- `data`: paths, transforms, batching
+- `train`: optimizer, learning-rate schedule, epochs, mixed precision
+- `eval`: metrics, thresholds
+- `system`: device, `num_workers`, deterministic flags
