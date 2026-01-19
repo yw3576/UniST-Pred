@@ -7,45 +7,38 @@ import os
 from scipy.sparse import csr_matrix
 
 import argparse
+import yaml
 
 import logging
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+torch.cuda.empty_cache()
 #os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:256"
 os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
 
 parser = argparse.ArgumentParser()
-torch.cuda.empty_cache()
-
-parser.add_argument('-ep', "--epochs", type=str, default='50') 
-parser.add_argument('-batch', "--batch_size", type=str, default='16') 
-parser.add_argument('-used', "--used_link", type=str, default='7709')
-parser.add_argument('-sequence', "--sequence_length", type=str, default='12')
-parser.add_argument('-path', "--data_path", type=str, default='flow_data')
-parser.add_argument('--dataset', type=str, default='traffic',
-                        help='Dataset')
+parser.add_argument("--config", type=str)
 parser.add_argument("--remove_self_loops", action='store_true', default=True, help="remove_self_loops")
-
-parser.add_argument('-channel', "--num_channels", type=str, default='4') 
-parser.add_argument('-layer', "--num_layers", type=str, default='2') 
-parser.add_argument('-w', "--w_out", type=str, default='100') 
-parser.add_argument('-feat', "--feat_mixing_hidden_channels", type=str, default='100') 
-parser.add_argument('-mixer', "--no_mixer_layers", type=str, default='4') 
-
 args = parser.parse_args()
+config_name = args.config
 
-EPOCHS = int(args.epochs)
-batch_size = int(args.batch_size)
-num_link = int(args.used_link)
-sequence_length = int(args.sequence_length)
-path = args.data_path
+with open(config_name, "r") as f:
+    config = yaml.safe_load(f)
 
-num_channels = int(args.num_channels)
-num_layers = int(args.num_layers)
-w_out = int(args.w_out)
-feat_mixing_hidden_channels = int(args.feat_mixing_hidden_channels)
-no_mixer_layers = int(args.no_mixer_layers)
+
+EPOCHS = config['train']['epochs']
+batch_size = config['train']['batch_size']
+num_link = config['data']['used_link']
+sequence_length = config['data']['sequence']
+target_length = config['data']['target_length']
+
+num_channels = config['model']['channels']
+num_layers = config['model']['nm_layers']
+w_out = config['model']['w_out']
+feat_mixing_hidden_channels = config['model']['feat_mixing_hidden_channels']
+no_mixer_layers = config['model']['no_mixer_layers']
+
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
@@ -53,7 +46,7 @@ os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 #from load_data_gnn_new_new_features import load_data_GNN
 #features, new_features, edges, targets, new_link_01, scenarios_total = load_data_GNN(sequence_length=sequence_length, flow_path='flow_data_random')
 
-pems_lanes = np.load('pems_lanes.npy')
+pems_lanes = np.load('data/pemsbay/pems_lanes.npy')
 
 import pickle
 
@@ -79,9 +72,7 @@ adj_sparse_coo = torch.sparse_coo_tensor(indices, values)
 E_train = []
 E_train.append(adj_sparse_coo)
 #E_train = adj_sparse_coo
-num_nodes = E_train[0].shape[0]
-#args.num_nodes = 7607
-args.num_nodes = 325
+num_nodes = num_link
 
 
 def get_device():
@@ -118,28 +109,11 @@ A_train_pred.append((edge_tmp.detach().to('cpu'),value_tmp.detach().to('cpu')))
 
 import random
 
-data = np.load('PEMS-bay.npy')
-
-mean_ = np.mean(data, 0)
-std_ = np.mean(data, 0)
-
-#print(mean_.shape)
+data = np.load('data/pemsbay/PEMS-bay.npy')
 
 shape = data.shape
-weeks = 0
-hours = 0
-days = 7
-
-#print('weeks', weeks, 'days', days, 'hours', hours)
-logger.info(f"weeks: {weeks}")
-logger.info(f"days: {days}")
-logger.info(f"hours: {hours}")
-
-#print('batch size', batch_size)
 logger.info(f"batch size: {batch_size}")
 
-sequence_length = 12*hours + 288*days + weeks*288*5
-target_length = 12
 total_time = 52116
 X = []
 y = []
@@ -454,7 +428,7 @@ for i in range(EPOCHS):
     #print('running_vloss', running_vloss)
     logger.info(f"validating loss. loss: {running_vloss1}, rmse: {running_vloss}")
     
-    PATH  = 'model_pytorch_pemsbay_new_e_se_1d_residual_training__smoothl1' + '_win' + str(w_in) + '_eppoch' + args.epochs + '_batch' + args.batch_size + '_layers' + args.num_layers + '_mixer_layers' + args.no_mixer_layers + '.pt'
+    PATH  = 'model_pytorch_pemsbay_new_e_se_1d_residual.pt'
 
     model = model.to("cpu")
     torch.save(model.state_dict(), PATH)
@@ -463,19 +437,4 @@ for i in range(EPOCHS):
     scheduler.step()
     
     predict()
-
-
-del X_train
-del X_test
-del y_train
-del y_test
-del train_dataset
-del train_loader
-del validation_loader
-del test_dataset
- 
-    
-    
-    
-    
-
+	
