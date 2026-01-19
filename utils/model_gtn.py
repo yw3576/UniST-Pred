@@ -3,7 +3,7 @@ import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
 import math
-from gcn import GCNConv
+from utils.gcn import GCNConv
 from torch_scatter import scatter_add
 import torch_sparse
 
