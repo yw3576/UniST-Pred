@@ -16,7 +16,7 @@ python test_unistpred.py --config configs/[configure file name]
 
 ## Configuration
 
-Configs are stored in `configs/` (YAML/JSON). Typical sections include:
+Configs are stored in `configs/` (YAML). Sections include:
 
 - `model`: architecture
 - `data`: sequence length, target length, nodes
