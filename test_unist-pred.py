@@ -428,7 +428,7 @@ for i in range(EPOCHS):
     #print('running_vloss', running_vloss)
     logger.info(f"validating loss. loss: {running_vloss1}, rmse: {running_vloss}")
     
-    PATH  = 'model_pytorch_pemsbay_new_e_se_1d_residual.pt'
+    PATH  = 'model.pt'
 
     model = model.to("cpu")
     torch.save(model.state_dict(), PATH)
@@ -438,3 +438,4 @@ for i in range(EPOCHS):
     
     predict()
 	
+
