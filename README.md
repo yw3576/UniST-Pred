@@ -7,7 +7,7 @@
 - **License:** <MIT / Apache-2.0 / Proprietary>
 
 ## Train
-python test_unistpred.py --config configs/config_pems.yaml
+python test_unistpred.py --config configs/[configure file name]
 ## Evaluate
 
 ## Data
