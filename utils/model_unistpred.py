@@ -27,8 +27,8 @@ Created on Wed May 14 10:17:53 2025
 """
 
 from torch import nn
-from utils.model_gtn import GTN
-from utils.model_tsmixer import TSMixerModel
+from .model_gtn import GTN
+from .model_tsmixer import TSMixerModel
 import torch
 import numpy as np
 import torch.nn.functional as F
