@@ -1,9 +1,9 @@
 # UniST-Pred
 <One-sentence description of what this project does.>
 
-- **Task:** <e.g., classification / forecasting / segmentation / LLM fine-tuning>
-- **Framework:** <PyTorch / TensorFlow / JAX>
-- **Dataset:** <name + short description>
+- **Task:** <forecasting>
+- **Framework:** <PyTorch>
+- **Dataset:** <SimSF-Bay, PEMS-Bay, NYCTaxi>
 - **License:** <MIT / Apache-2.0 / Proprietary>
 
 ## Train
