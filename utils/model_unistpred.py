@@ -121,12 +121,12 @@ class FusionSE24(nn.Module):
         x = self.blocks(x)                    # (B, L, 24)
         return x
 
-class GTN_TSmixer(nn.Module):
+class UniST_Pred(nn.Module):
     """Include Reversible instance normalization https://openreview.net/pdf?id=cGDAkQo1C0p
     """    
 
     def __init__(self, num_edge, num_channels, w_in, w_out, num_class, num_nodes, num_layers, args, input_length: int, forecast_length: int, no_feats: int, feat_mixing_hidden_channels: int, no_mixer_layers: int,  dropout: float, eps: float = 1e-8):
-        super(GTN_TSmixer, self).__init__()
+        super(UniST_Pred, self).__init__()
         self.gtn = GTN(num_edge=num_edge,
                     num_channels=num_channels,
                     w_in = w_in,
@@ -206,4 +206,5 @@ class GTN_TSmixer(nn.Module):
         #print(out_total.shape)
         
         return out_total
+
         
