@@ -216,7 +216,7 @@ final_f1, final_micro_f1 = [], []
 tmp = None
 
 w_in = 2
-import UniST_Pred
+from utils import UniST_Pred
 model = UniST_Pred(num_edge=np.shape(edge_index)[1],
             num_channels=num_channels,
             w_in = w_in,
@@ -461,5 +461,6 @@ del test_dataset
     
     
     
+
 
 
