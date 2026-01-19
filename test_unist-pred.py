@@ -216,8 +216,8 @@ final_f1, final_micro_f1 = [], []
 tmp = None
 
 w_in = 2
-from utils.model_unistpred import GTN_TSmixer
-model = GTN_TSmixer(num_edge=np.shape(edge_index)[1],
+import UniST_Pred
+model = UniST_Pred(num_edge=np.shape(edge_index)[1],
             num_channels=num_channels,
             w_in = w_in,
             w_out = w_out,
@@ -461,4 +461,5 @@ del test_dataset
     
     
     
+
 
