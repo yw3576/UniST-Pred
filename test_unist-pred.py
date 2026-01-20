@@ -16,10 +16,10 @@ torch.cuda.empty_cache()
 #os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "max_split_size_mb:256"
 os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
 
-parser = argparse.ArgumentParser()
-parser.add_argument("--config", type=str)
-parser.add_argument("--remove_self_loops", action='store_true', default=True, help="remove_self_loops")
-args = parser.parse_args()
+#parser = argparse.ArgumentParser()
+#parser.add_argument("--config", type=str)
+#parser.add_argument("--remove_self_loops", action='store_true', default=True, help="remove_self_loops")
+#args = parser.parse_args()
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-ep', "--epochs", type=str, default='50') 
@@ -461,6 +461,7 @@ del test_dataset
     
     
     
+
 
 
 
