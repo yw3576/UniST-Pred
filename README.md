@@ -7,7 +7,7 @@
 - **License:** <MIT / Apache-2.0 / Proprietary>
 
 ## Train and Evaluate
-python run.sh
+python run_.sh
 
 ## Data
 You can download the data at [Google drive](https://drive.google.com/drive/folders/1IryA0_cDQiHfqVa9g55DJfVigExTQRuZ?usp=drive_link)
