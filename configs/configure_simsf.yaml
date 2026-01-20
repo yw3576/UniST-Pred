@@ -1,19 +1,21 @@
-model:
-  name: 'SimSF-Bay'
-  num_layer: 2
-  channels: 4
-  w_out: 100
-  feat_mixing_hidden_channels: 100
-  no_mixer_layers: 2
+#model:
+name: 'SimSF-Bay'
+num_layer: 2
+channels: 4
+w_out: 100
+feat_mixing_hidden_channels: 100
+no_mixer_layers: 2
+remove_self_loops: True
   
-train:
-  epochs: 50
-  lr: 5e-4
-  batch_size: 5
+#train:
+epochs: 50
+learning_rate: 5e-4
+batch_size: 5
   
-data:
-  sequence: 9
-  target_length: 1
-  used_link: 7709
+#data:
+sequence: 9
+target_length: 1
+used_link: 7709
   
+
  
