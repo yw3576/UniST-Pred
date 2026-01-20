@@ -1,1 +1,20 @@
-
+#model:
+name: 'nyctaxi'
+num_layer: 2
+channels: 4
+w_out: 100
+feat_mixing_hidden_channels: 100
+no_mixer_layers: 2
+remove_self_loops: True
+  
+#train:
+epochs: 100
+learning_rate: 5e-4
+batch_size: 5
+  
+#data:
+sequence: 35
+target_length: 1
+used_link: 200
+  
+ 
