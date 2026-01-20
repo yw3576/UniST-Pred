@@ -1,30 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Nov  7 18:15:44 2025
-
-@author: yw3576
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Oct 25 12:08:25 2025
-
-@author: yw3576
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Jul 19 09:47:13 2025
-
-@author: yw3576
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Wed May 14 10:17:53 2025
-
-@author: yw3576
-"""
 
 from torch import nn
 from .model_gtn import GTN
@@ -208,3 +182,4 @@ class UniST_Pred(nn.Module):
         return out_total
 
         
+
