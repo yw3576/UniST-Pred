@@ -1,19 +1,23 @@
-model:
-  name: 'pemsbay'
-  num_layer: 2
-  channels: 4
-  w_out: 100
-  feat_mixing_hidden_channels: 100
-  no_mixer_layers: 4
+#model:
+name: 'pemsbay'
+num_layer: 2
+channels: 4
+w_out: 100
+feat_mixing_hidden_channels: 100
+no_mixer_layers: 4
+remove_self_loops: True
   
-train:
-  epochs: 50
-  lr: 5e-4
-  batch_size: 64
+#train:
+epochs: 50
+learning_rate: 5e-4
+batch_size: 64
   
-data:
-  sequence: 2016
-  target_length: 12
-  used_link: 325
+#data:
+sequence: 2016
+target_length: 12
+used_link: 325
+  
+  
+
   
   
