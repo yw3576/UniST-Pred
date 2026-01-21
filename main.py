@@ -12,7 +12,7 @@ import random
 
 import argparse
 
-from utils.model_unistpred import UniST_Pred
+from .model.model_unistpred import UniST_Pred
 
 import logging
 logger = logging.getLogger(__name__)
@@ -408,4 +408,5 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
