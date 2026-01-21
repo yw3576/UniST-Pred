@@ -46,6 +46,7 @@ def model_supervisor(args):
     w_out = int(args.w_out)
     feat_mixing_hidden_channels = int(args.feat_mixing_hidden_channels)
     no_mixer_layers = int(args.no_mixer_layers)
+    data_name = args.name
 
     target_length = 12
 
@@ -56,7 +57,7 @@ def model_supervisor(args):
     
     adj_dense = torch.from_numpy(adj_mx[2]).float()
 
-# Alternatively, if you want a stacked 2D tensor of indices:
+    # Alternatively, if you want a stacked 2D tensor of indices:
     indices = torch.nonzero(adj_dense).t() # .t() transposes to (2, num_non_zeros)
     values = torch.ones(indices.shape[1])
     for i in range(indices.shape[1]):
@@ -408,5 +409,6 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
