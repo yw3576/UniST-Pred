@@ -6,7 +6,7 @@
 - **Dataset:** <SimSF-Bay, PEMS-Bay, NYCTaxi>
 - **License:** <MIT / Apache-2.0 / Proprietary>
   
-<img src="figures/UniST_archi.png" alt="TheTable" style="zoom:80%;" />
+<img src="figures/UniST_archi.png" alt="TheTable" style="zoom:100%;" />
 
 ## Train and Evaluate
 python run_.sh configure_pems
