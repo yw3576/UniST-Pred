@@ -5,6 +5,8 @@
 - **Framework:** < PyTorch>
 - **Dataset:** <SimSF-Bay, PEMS-Bay, NYCTaxi>
 - **License:** <MIT / Apache-2.0 / Proprietary>
+- 
+<img src="figure/UniST_archi.pdf" alt="TheTable" style="zoom:42%;" />
 
 ## Train and Evaluate
 python run_.sh configure_pems
