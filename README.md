@@ -6,7 +6,7 @@
 - **Dataset:** <SimSF-Bay, PEMS-Bay, NYCTaxi>
 - **License:** <MIT / Apache-2.0 / Proprietary>
   
-<img src="figures/UniST_archi.png" alt="TheTable" style="zoom:100%;" />
+<img src="figures/UniST_archi.png" alt="TheTable" />
 
 ## Train and Evaluate
 cd UniST_Pred
