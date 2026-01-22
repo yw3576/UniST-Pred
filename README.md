@@ -9,7 +9,7 @@
 <img src="figures/UniST_archi.png" alt="TheTable" />
 
 ## Train and Evaluate
-cd UniST_Pred
+cd UniST_Pred \
 ./run_.sh configure_pems
 
 ## Data
