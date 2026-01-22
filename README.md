@@ -10,7 +10,7 @@
 
 ## Train and Evaluate
 cd UniST_Pred \
-./run_.sh configure_pems
+./run_.sh  --config_file configure_pems
 
 ## Data
 You can download the data at [Google drive](https://drive.google.com/drive/folders/1IryA0_cDQiHfqVa9g55DJfVigExTQRuZ?usp=drive_link)
