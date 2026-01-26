@@ -252,4 +252,4 @@ def DataLoader(data_name, data_dir, sequence_length, target_length):
     if data_name == 'nyctaxi':
         X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = nyctaxi(data_dir, sequence_length, target_length)
     
-    return 
+    return X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train
