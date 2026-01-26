@@ -22,7 +22,7 @@ def get_device():
         logging.info("Using CPU")
     return device
 
-def simsfbay(data_dir, sequence_length, target_length):
+def simsfbay(data_dir = '.../dataset/SimSF-Bay/', sequence_length = 9, target_length = 1):
     
     DEVICE = get_device()
     
@@ -79,7 +79,7 @@ def simsfbay(data_dir, sequence_length, target_length):
     
     return X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train.to(DEVICE)
 
-def pemsbay(data_dir, sequence_length, target_length):
+def pemsbay(data_dir = '.../dataset/PEMS-Bay/', sequence_length = 2016, target_length = 12):
 
     pems_lanes = np.load(data_dir+'pems_lanes.npy')
 
@@ -186,7 +186,7 @@ def pemsbay(data_dir, sequence_length, target_length):
     
     return X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train
 
-def nyctaxi(data_dir, sequence_length = 35, target_length = 1):
+def nyctaxi(data_dir = '.../dataset/NYCTaxi/', sequence_length = 35, target_length = 1):
     
     adj_mx = np.load(data_dir+'adj_mx.npz')['adj_mx']
     adj_dense = torch.from_numpy(adj_mx).float()
