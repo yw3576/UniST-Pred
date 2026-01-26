@@ -20,7 +20,7 @@ please run the following commands to train the model on the specific configure f
 You can download the data at [Google drive](https://drive.google.com/drive/folders/1IryA0_cDQiHfqVa9g55DJfVigExTQRuZ?usp=drive_link) and put the data in the `dataset/` folder
 ### SimSF-Bay
 ```
-|----PMES-Bay\
+|----SimSF-Bay\
 |    |----train_s_simsf.npy    # training and validation data for spatial block
 |    |----train_t_simsf.npy    # training and validation data for temporal block
 |    |----train_y_simsf.npy    # training and validation targets
@@ -32,7 +32,7 @@ You can download the data at [Google drive](https://drive.google.com/drive/folde
 
 ### PEMS-Bay
 ```
-|----SimSF-Bay\
+|----PEMS-Bay\
 |    |----PEMS-bay.npy        # all data
 |    |----adj_mx_bay.pkl      # predefined graph structure
 |    |----pems-bay-meta.h5    # meta file
