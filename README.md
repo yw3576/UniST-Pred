@@ -23,8 +23,10 @@ You can download the data at [Google drive](https://drive.google.com/drive/folde
 |----PMES-Bay\
 |    |----train_s_simsf.npy    # training and validation data for spatial block
 |    |----train_t_simsf.npy    # training and validation data for temporal block
+|    |----train_y_simsf.npy    # training and validation targets
 |    |----test_s_simsf.npy     # testing data for spatial block
 |    |----test_f_simsf.npy     # testing data for temporal block
+|    |----test_y_simsf.npy     # testing targets
 |    |----A_train.npy          # candidate graph structures
 ```
 
