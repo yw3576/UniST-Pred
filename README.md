@@ -20,21 +20,21 @@ please run the following commands to train the model on the specific configure f
 You can download the data at [Google drive](https://drive.google.com/drive/folders/1IryA0_cDQiHfqVa9g55DJfVigExTQRuZ?usp=drive_link)
 ### SimSF-Bay
 ```
-|----SimSF-Bay\
-|    |----PEMS-bay.npy        # all data
-|    |----adj_mx_bay.pkl      # predefined graph structure
-|    |----pems-bay-meta.h5    # meta file
-|    |----pems_lanes.npy      # num of lanes
-```
-
-### PEMS-Bay
-```
 |----PMES-Bay\
 |    |----train_s_simsf.npy    # training and validation data for spatial block
 |    |----train_t_simsf.npy    # training and validation data for temporal block
 |    |----test_s_simsf.npy     # testing data for spatial block
 |    |----test_f_simsf.npy     # testing data for temporal block
 |    |----A_train.npy          # candidate graph structures
+```
+
+### PEMS-Bay
+```
+|----SimSF-Bay\
+|    |----PEMS-bay.npy        # all data
+|    |----adj_mx_bay.pkl      # predefined graph structure
+|    |----pems-bay-meta.h5    # meta file
+|    |----pems_lanes.npy      # num of lanes
 ```
 
 ### NYCTaxi
