@@ -13,6 +13,7 @@ import random
 import argparse
 
 from .model.model_unistpred import UniST_Pred
+from .utils.dataloader import dataloader
 
 import logging
 logger = logging.getLogger(__name__)
@@ -48,111 +49,7 @@ def model_supervisor(args):
     no_mixer_layers = int(args.no_mixer_layers)
     data_name = args.name
 
-    target_length = 12
-
-    pems_lanes = np.load('pems_lanes.npy')
-
-    with open('adj_mx_bay.pkl', 'rb') as f:
-        adj_mx = pickle.load(f, encoding='latin1')
-    
-    adj_dense = torch.from_numpy(adj_mx[2]).float()
-
-    # Alternatively, if you want a stacked 2D tensor of indices:
-    indices = torch.nonzero(adj_dense).t() # .t() transposes to (2, num_non_zeros)
-    values = torch.ones(indices.shape[1])
-    for i in range(indices.shape[1]):
-        values[i] = adj_dense[indices[0,i], indices[1,i]]
-
-    adj_sparse_coo = torch.sparse_coo_tensor(indices, values)
-
-    E_train = []
-    E_train.append(adj_sparse_coo)
-    #E_train = adj_sparse_coo
-    num_nodes = num_link
-
-    DEVICE = get_device()
-    #A_train = A_train.to(DEVICE)
-    torch.cuda.empty_cache()
-
-    A_train = []
-    A_train_pred = []
-    for i,edge in enumerate(E_train):
-        #edge_index = np.array(edge._indices())
-        edge_index = csr_matrix(edge.to_dense())
-        edge_tmp = torch.from_numpy(np.vstack((edge_index.nonzero()[1], edge_index.nonzero()[0]))).type(torch.LongTensor)
-        value_tmp = torch.ones(edge_tmp.shape[1]).type(torch.float)
-        edge_tmp = edge_tmp.to(DEVICE)
-        value_tmp = value_tmp.to(DEVICE)
-        # normalize each adjacency matrix
-        A_train.append((edge_tmp,value_tmp))
-        A_train_pred.append((edge_tmp.to('cpu'), value_tmp.to('cpu')))
-    edge_tmp = torch.stack((torch.arange(0,num_nodes),torch.arange(0,num_nodes))).type(torch.LongTensor)
-    edge_tmp = edge_tmp.to(DEVICE)
-    value_tmp = torch.ones(num_nodes).type(torch.float)
-    value_tmp = value_tmp.to(DEVICE)
-    A_train.append((edge_tmp.detach(),value_tmp.detach()))
-    A_train_pred.append((edge_tmp.detach().to('cpu'),value_tmp.detach().to('cpu')))
-
-
-
-    data = np.load('PEMS-bay.npy')
-
-    shape = data.shape
-    logger.info(f"batch size: {batch_size}")
-
-    total_time = 52116
-    X = []
-    y = []
-    for i in range(52116-sequence_length-target_length):
-        data_e = data[i:i+sequence_length,:]
-        target_e = data[i+sequence_length:i+target_length+sequence_length]
-        X.append(data_e)
-        y.append(target_e)
-
-    inputs = np.array(X, dtype=np.uint8)
-    targets = np.array(y, dtype=np.uint8)
-    new_X = np.repeat(pems_lanes, inputs.shape[0], axis=0)
-
-    ind_pred = round(len(inputs)*0.8)
-
-    X_pred = inputs[ind_pred:, :, :]
-    y_pred = targets[ind_pred:, :, :]
-    new_X_pred = np.repeat(pems_lanes, X_pred.shape[0], axis=0)
-
-    temp = list(zip(inputs[:ind_pred,:,:], targets[:ind_pred,:,:], new_X[:,ind_pred]))
-    random.shuffle(temp)
-    res1, res2, res3 = zip(*temp)
-    res1, res2, res3 = list(res1), list(res2), list(res3)
-    random.seed()
-
-    inputs = []
-    targets = []
-    new_X = []
-
-    del inputs
-    del targets
-    del new_X
-    del temp
-
-    sample_num = len(res1)
-    ratio = 0.8
-    ind = int(sample_num*ratio)
-
-    X_train = res1[:ind]  # data shape: N, sequences, num of nodes
-    X_train = np.array(X_train)
-    X_test = res1[ind:]
-    X_test = np.array(X_test)
-    res1 = []
-    
-    new_X_train = np.array(res3[:ind])
-    new_X_test = np.array(res3[ind:])
-    res3 = []
-
-    y_train = res2[:ind]
-    y_train = np.array(y_train)
-    y_test = res2[ind:]
-    y_test = np.array(y_test)
-    res2 = []
+    X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = dataloader(data_name)
 
     train_dataset = torch.utils.data.TensorDataset(torch.tensor(X_train), torch.tensor(y_train), torch.tensor(new_X_train))
     train_loader = torch.utils.data.DataLoader(
@@ -413,6 +310,7 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
 
