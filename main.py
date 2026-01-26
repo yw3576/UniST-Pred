@@ -111,6 +111,7 @@ def model_supervisor(args):
 
     inputs = np.array(X, dtype=np.uint8)
     targets = np.array(y, dtype=np.uint8)
+    new_X = np.repeat(pems_lanes, inputs.shape[0], axis=0)
 
     ind_pred = round(len(inputs)*0.8)
 
@@ -118,17 +119,19 @@ def model_supervisor(args):
     y_pred = targets[ind_pred:, :, :]
     new_X_pred = np.repeat(pems_lanes, X_pred.shape[0], axis=0)
 
-    temp = list(zip(inputs[:ind_pred,:,:], targets[:ind_pred,:,:]))
+    temp = list(zip(inputs[:ind_pred,:,:], targets[:ind_pred,:,:], new_X[:,ind_pred]))
     random.shuffle(temp)
-    res1, res2 = zip(*temp)
-    res1, res2 = list(res1), list(res2)
+    res1, res2, res3 = zip(*temp)
+    res1, res2, res3 = list(res1), list(res2), list(res3)
     random.seed()
 
     inputs = []
     targets = []
+    new_X = []
 
     del inputs
     del targets
+    del new_X
     del temp
 
     sample_num = len(res1)
@@ -137,18 +140,19 @@ def model_supervisor(args):
 
     X_train = res1[:ind]  # data shape: N, sequences, num of nodes
     X_train = np.array(X_train)
-    new_X_train = np.repeat(pems_lanes, X_train.shape[0], axis=0)
     X_test = res1[ind:]
     X_test = np.array(X_test)
-    new_X_test = np.repeat(pems_lanes, X_test.shape[0], axis=0)
     res1 = []
-
+    
+    new_X_train = np.array(res3[:ind])
+    new_X_test = np.array(res3[ind:])
+    res3 = []
 
     y_train = res2[:ind]
     y_train = np.array(y_train)
     y_test = res2[ind:]
     y_test = np.array(y_test)
-    res3 = []
+    res2 = []
 
     train_dataset = torch.utils.data.TensorDataset(torch.tensor(X_train), torch.tensor(y_train), torch.tensor(new_X_train))
     train_loader = torch.utils.data.DataLoader(
@@ -409,6 +413,7 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
 
