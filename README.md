@@ -17,7 +17,7 @@ please run the following commands to train the model on the specific configure f
 ```
 
 ## Data
-You can download the data at [Google drive](https://drive.google.com/drive/folders/1IryA0_cDQiHfqVa9g55DJfVigExTQRuZ?usp=drive_link)
+You can download the data at [Google drive](https://drive.google.com/drive/folders/1IryA0_cDQiHfqVa9g55DJfVigExTQRuZ?usp=drive_link) and put the data in the `dataset/` folder
 ### SimSF-Bay
 ```
 |----PMES-Bay\
