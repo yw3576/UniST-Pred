@@ -241,7 +241,7 @@ def nyctaxi(data_dir = '.../dataset/NYCTaxi/', sequence_length = 35, target_leng
     
     return X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train
 
-def DataLoader(data_name, data_dir, sequence_length, target_length):
+def dataloader(data_name, data_dir, sequence_length, target_length):
     
     if data_name == 'SimSF-Bay':
         X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = simsfbay(data_dir, sequence_length, target_length)
