@@ -11,7 +11,7 @@ remove_self_loops: True
 epochs: 50
 learning_rate: 0.0005
 batch_size: 5
-loss_fn: 1
+loss_fn: 1        # 0: MSE loss; 1: MAE loss; 2: Huber loss; 3: Smooth L1 loss
   
 #data:
 sequence_length: 9
@@ -20,6 +20,7 @@ used_link: 7709
 dataset: 'traffci'
 
  
+
 
 
 
