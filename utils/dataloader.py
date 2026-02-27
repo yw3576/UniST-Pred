@@ -12,6 +12,14 @@ import logging
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+def get_device():
+    if torch.cuda.is_available():
+        device = torch.device("cuda")
+        logging.info(f"Using GPU: {torch.cuda.get_device_name(0)}")
+    else:
+        device = torch.device("cpu")
+        logging.info("Using CPU")
+    return device
 def simsfbay(data_dir = '.../dataset/SimSF-Bay/', sequence_length = 9, target_length = 1):
     
     DEVICE = get_device()
