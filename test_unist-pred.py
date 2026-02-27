@@ -57,11 +57,11 @@ os.environ['CUDA_LAUNCH_BLOCKING'] = '1'
 #from load_data_gnn_new_new_features import load_data_GNN
 #features, new_features, edges, targets, new_link_01, scenarios_total = load_data_GNN(sequence_length=sequence_length, flow_path='flow_data_random')
 
-pems_lanes = np.load('pems_lanes.npy')
+pems_lanes = np.load('.../dataset/PEMS-Bay/pems_lanes.npy')
 
 import pickle
 
-with open('adj_mx_bay.pkl', 'rb') as f:
+with open('.../dataset/PEMS-Bay/adj_mx_bay.pkl', 'rb') as f:
     adj_mx = pickle.load(f, encoding='latin1')
     
 adj_dense = torch.from_numpy(adj_mx[2]).float()
@@ -120,7 +120,7 @@ A_train_pred.append((edge_tmp.detach().to('cpu'),value_tmp.detach().to('cpu')))
 
 import random
 
-data = np.load('PEMS-bay.npy')
+data = np.load('.../PEMS-Bay/PEMS-bay.npy')
 
 shape = data.shape
 logger.info(f"batch size: {batch_size}")
@@ -461,6 +461,7 @@ del test_dataset
     
     
     
+
 
 
 
