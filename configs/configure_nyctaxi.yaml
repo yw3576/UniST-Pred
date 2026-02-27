@@ -16,7 +16,6 @@ batch_size: 5
 sequence_length: 35
 target_length: 1
 used_link: 200
-num_edge: 200
 dataset: 'traffic'
   
  
