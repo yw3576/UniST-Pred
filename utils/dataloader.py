@@ -51,7 +51,7 @@ def simsfbay(data_dir = '.../dataset/SimSF-Bay/', sequence_length = 9, target_le
     
     ind_pred = round(len(inputs)*0.8)
     
-    temp = list(zip(inputs[:ind_pred,:,:], targets[:ind_pred,:,:], new_X[:ind_pred,:,:]))
+    temp = list(zip(inputs[:ind_pred,:,:], targets[:ind_pred,:,:], new_X[:ind_pred,:]))
     random.shuffle(temp)
     res1, res2, res3 = zip(*temp)
     res1, res2, res3 = list(res1), list(res2), list(res3)
