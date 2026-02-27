@@ -42,7 +42,7 @@ def model_supervisor(args):
     sequence_length = int(args.sequence_length)
     target_length = int(args.target_length)
     #path = args.data_path
-    num_edge = 8087
+    num_edge = args.num_edge
 
     num_channels = int(args.num_channels)
     num_layers = int(args.num_layers)
@@ -312,6 +312,7 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
 
