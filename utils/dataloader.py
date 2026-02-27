@@ -41,17 +41,17 @@ def simsfbay(data_dir = '.../dataset/SimSF-Bay/', sequence_length = 9, target_le
     inputs = np.transpose(inputs,(0,2,1))
     targets = np.load(data_dir+'train_y_simsf.npy')
     targets = np.transpose(targets,(0,2,1))
-    new_X = np.load(data_dir+'train_s_simsf.npy')
+    new_X = np.load(data_dir+'train_s_simsf.npy')[:,:,0]
     
     X_pred = np.load(data_dir+'test_t_simsf.npy')
     X_pred = np.transpose(X_pred,(0,2,1))
     y_pred = np.load(data_dir+'test_y_simsf.npy')
     y_pred = np.transpose(y_pred,(0,2,1))
-    new_X_pred = np.load(data_dir+'test_s_simsf.npy')
+    new_X_pred = np.load(data_dir+'test_s_simsf.npy')[:,:,0]
     
     ind_pred = round(len(inputs)*0.8)
     
-    temp = list(zip(inputs[:ind_pred,:,:], targets[:ind_pred,:,:], new_X[:,ind_pred]))
+    temp = list(zip(inputs[:ind_pred,:,:], targets[:ind_pred,:,:], new_X[:ind_pred,:,:]))
     random.shuffle(temp)
     res1, res2, res3 = zip(*temp)
     res1, res2, res3 = list(res1), list(res2), list(res3)
