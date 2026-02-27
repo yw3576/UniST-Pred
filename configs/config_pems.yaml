@@ -1,7 +1,7 @@
 #model:
 name: 'pemsbay'
-num_layer: 2
-channels: 4
+num_layers: 2
+num_channels: 4
 w_out: 100
 feat_mixing_hidden_channels: 100
 no_mixer_layers: 4
