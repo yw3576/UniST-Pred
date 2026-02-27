@@ -16,10 +16,10 @@ batch_size: 5
 sequence_length: 9
 target_length: 1
 used_link: 7709
-num_edge: 8087
 dataset: 'traffci'
 
  
+
 
 
 
