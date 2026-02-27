@@ -26,7 +26,7 @@ def simsfbay(data_dir = '.../dataset/SimSF-Bay/', sequence_length = 9, target_le
     
     DEVICE = get_device()
     
-    A_train = np.load(data_dir+'A_train.npy')
+    A_train = torch.load(data_dir+'A_train.npy')
     
     inputs = np.load(data_dir+'train_t_simsf.npy')
     inputs = inputs.permute(0,2,1)
