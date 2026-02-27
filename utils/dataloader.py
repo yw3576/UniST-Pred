@@ -12,6 +12,7 @@ import logging
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+
 def get_device():
     if torch.cuda.is_available():
         device = torch.device("cuda")
@@ -20,22 +21,32 @@ def get_device():
         device = torch.device("cpu")
         logging.info("Using CPU")
     return device
+
 def simsfbay(data_dir = '.../dataset/SimSF-Bay/', sequence_length = 9, target_length = 1):
     
     DEVICE = get_device()
     
     A_train = torch.load(data_dir+'A_train.npy')
     
+    A_train_=[]
+    for i in range(len(A_train)):
+        edge_tmp = A_train[i][0]
+        edge_tmp = edge_tmp.to(DEVICE)
+        value_tmp = A_train[i][1]
+        value_tmp = value_tmp.to(DEVICE)
+        
+        A_train_.append((edge_tmp,value_tmp))
+    
     inputs = np.load(data_dir+'train_t_simsf.npy')
-    inputs = inputs.permute(0,2,1)
+    inputs = np.transpose(inputs,(0,2,1))
     targets = np.load(data_dir+'train_y_simsf.npy')
-    targets = targets.permute(0,2,1)
+    targets = np.transpose(targets,(0,2,1))
     new_X = np.load(data_dir+'train_s_simsf.npy')
     
     X_pred = np.load(data_dir+'test_t_simsf.npy')
-    X_pred = X_pred.permute(0,2,1)
+    X_pred = np.transpose(X_pred,(0,2,1))
     y_pred = np.load(data_dir+'test_y_simsf.npy')
-    y_pred = y_pred.permute(0,2,1)
+    y_pred = np.transpose(y_pred,(0,2,1))
     new_X_pred = np.load(data_dir+'test_s_simsf.npy')
     
     ind_pred = round(len(inputs)*0.8)
@@ -75,7 +86,7 @@ def simsfbay(data_dir = '.../dataset/SimSF-Bay/', sequence_length = 9, target_le
     y_test = np.array(y_test)
     res2 = []
     
-    return X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train.to(DEVICE)
+    return X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train_
 
 def pemsbay(data_dir = '.../dataset/PEMS-Bay/', sequence_length = 2016, target_length = 12):
 
@@ -239,15 +250,15 @@ def nyctaxi(data_dir = '.../dataset/NYCTaxi/', sequence_length = 35, target_leng
     
     return X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train
 
-def dataloader(data_name, data_dir, sequence_length, target_length):
+def dataloader(data_name, sequence_length, target_length):
     
     if data_name == 'SimSF-Bay':
-        X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = simsfbay(data_dir, sequence_length, target_length)
+        X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = simsfbay(sequence_length=sequence_length, target_length=target_length)
     
     if data_name == 'pemsbay':
-        X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = pemsbay(data_dir, sequence_length, target_length)
+        X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = pemsbay(sequence_length=sequence_length, target_length=target_length)
     
     if data_name == 'nyctaxi':
-        X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = nyctaxi(data_dir, sequence_length, target_length)
+        X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = nyctaxi(sequence_length=sequence_length, target_length=target_length)
     
     return X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train
