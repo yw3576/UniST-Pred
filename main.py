@@ -42,7 +42,7 @@ def model_supervisor(args):
     sequence_length = int(args.sequence_length)
     target_length = int(args.target_length)
     #path = args.data_path
-    num_edge = args.num_edge
+    num_edge = num_link
     loss_ = args.loss_fn
 
     num_channels = int(args.num_channels)
@@ -322,6 +322,7 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
 
