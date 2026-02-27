@@ -13,9 +13,10 @@ learning_rate: 5e-4
 batch_size: 5
   
 #data:
-sequence: 9
+sequence_length: 9
 target_length: 1
 used_link: 7709
   
 
  
+
