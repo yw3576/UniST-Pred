@@ -11,6 +11,7 @@ remove_self_loops: True
 epochs: 50
 learning_rate: 0.0005
 batch_size: 64
+loss_fn: 3        # 0: MSE loss; 1: MAE loss; 2: Huber loss; 3: Smooth L1 loss
   
 #data:
 sequence_length: 2016
