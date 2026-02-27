@@ -12,8 +12,8 @@ import random
 
 import argparse
 
-from .model.model_unistpred import UniST_Pred
-from .utils.dataloader import dataloader
+from model.model_unistpred import UniST_Pred
+from utils.dataloader import dataloader
 
 import logging
 logger = logging.getLogger(__name__)
@@ -35,12 +35,14 @@ def get_device():
 
 def model_supervisor(args):
 
-
+    DEVICE = get_device()
     EPOCHS = int(args.epochs)
     batch_size = int(args.batch_size)
     num_link = int(args.used_link)
     sequence_length = int(args.sequence_length)
-    path = args.data_path
+    target_length = int(args.target_length)
+    #path = args.data_path
+    num_edge = 8087
 
     num_channels = int(args.num_channels)
     num_layers = int(args.num_layers)
@@ -49,9 +51,9 @@ def model_supervisor(args):
     no_mixer_layers = int(args.no_mixer_layers)
     data_name = args.name
 
-    X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = dataloader(data_name)
+    X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = dataloader(data_name, sequence_length, target_length)
 
-    train_dataset = torch.utils.data.TensorDataset(torch.tensor(X_train), torch.tensor(y_train), torch.tensor(new_X_train))
+    train_dataset = torch.utils.data.TensorDataset(torch.tensor(X_train, dtype=torch.uint8), torch.tensor(y_train, dtype=torch.uint8), torch.tensor(new_X_train, dtype=torch.uint8))
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
         batch_size=batch_size,
@@ -83,7 +85,7 @@ def model_supervisor(args):
 
     w_in = 2
 
-    model = UniST_Pred(num_edge=np.shape(edge_index)[1],
+    model = UniST_Pred(num_edge=8087,
             num_channels=num_channels,
             w_in = w_in,
             w_out = w_out,
@@ -170,7 +172,7 @@ def model_supervisor(args):
             logger.info(f"prediction loss. loss: {vloss_total}")
 
 
-    lr =args.learning_rate
+    lr =float(args.learning_rate)
     weight_decay = 0.1
     betas = (0.9, 0.95)
     epsilon = 1.0e-3
