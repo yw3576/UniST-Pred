@@ -43,6 +43,7 @@ def model_supervisor(args):
     target_length = int(args.target_length)
     #path = args.data_path
     num_edge = args.num_edge
+    loss_ = args.loss_fn
 
     num_channels = int(args.num_channels)
     num_layers = int(args.num_layers)
@@ -85,7 +86,7 @@ def model_supervisor(args):
 
     w_in = 2
 
-    model = UniST_Pred(num_edge=8087,
+    model = UniST_Pred(num_edge=num_edge,
             num_channels=num_channels,
             w_in = w_in,
             w_out = w_out,
@@ -154,22 +155,22 @@ def model_supervisor(args):
             out_test_all = out_test_all.cpu()
             y_test_all = y_test_all.cpu()
         
-        vloss = torch.sqrt(loss_fn(torch.squeeze(y_test_all[:,:,:]), torch.squeeze(out_test_all[:,:,:])))
-        logger.info(f"prediction loss. loss: {vloss}")
+        vloss = torch.sqrt(loss_fn0(torch.squeeze(y_test_all[:,:,:]), torch.squeeze(out_test_all[:,:,:])))
+        logger.info(f"prediction RMSE: {vloss}")
         vloss = (loss_fn1(torch.squeeze(y_test_all[:,:,:]), torch.squeeze(out_test_all[:,:,:])))
-        logger.info(f"prediction loss. loss: {vloss}")   
+        logger.info(f"prediction mae: {vloss}")   
 
         vloss_total = torch.zeros((target_length, 1))
         for t in range(target_length):
-            vloss_total[t,0] = torch.sqrt((loss_fn(torch.squeeze(y_test_all[:,t,:]), torch.squeeze(out_test_all[:,t,:]))))
+            vloss_total[t,0] = torch.sqrt((loss_fn0(torch.squeeze(y_test_all[:,t,:]), torch.squeeze(out_test_all[:,t,:]))))
                     
-            logger.info(f"prediction loss. loss: {vloss_total}")
+            logger.info(f"prediction RMSE: {vloss_total}")
 
         vloss_total = torch.zeros((target_length, 1))
         for t in range(target_length):
             vloss_total[t,0] = ((loss_fn1(torch.squeeze(y_test_all[:,t,:]), torch.squeeze(out_test_all[:,t,:]))))
                     
-            logger.info(f"prediction loss. loss: {vloss_total}")
+            logger.info(f"prediction mae: {vloss_total}")
 
 
     lr =float(args.learning_rate)
@@ -182,13 +183,22 @@ def model_supervisor(args):
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[10, 50], gamma=0.1)
 
     Ws = []
-
-    loss_fn = torch.nn.MSELoss()
+    
+    loss_fn0 = torch.nn.MSELoss()
     loss_fn1 = torch.nn.L1Loss()
     loss_fn2 = torch.nn.HuberLoss(delta=2.0)
     beta = 2.0
     logger.info(f"beta: {beta}")
     loss_fn3 = torch.nn.SmoothL1Loss(beta=beta)
+    
+    if loss_==0:
+        loss_fn = loss_fn0
+    if loss_==1:
+        loss_fn = loss_fn1
+    if loss_==2:
+        loss_fn = loss_fn2
+    if loss_==3:
+        loss_fn = loss_fn3
 
     flag = 2
     logger.info(f"flag: {flag}")
@@ -225,7 +235,7 @@ def model_supervisor(args):
             loss = 0
             
             out_train = model(A_train, features, features_new, train_node.detach())
-            loss = loss_fn3(torch.squeeze(y[:,:,:]), torch.squeeze(out_train[:,:,:]))
+            loss = loss_fn(torch.squeeze(y[:,:,:]), torch.squeeze(out_train[:,:,:]))
             shape1 = out_train.shape
             shape2 = y.shape
             optimizer.zero_grad()
@@ -267,11 +277,11 @@ def model_supervisor(args):
                 vloss=0
                 out_test = model(A_train, vfeatures, vfeatures_new, train_node.detach(), eval=True)
 
-                vloss = torch.sqrt(loss_fn(torch.squeeze(vy[:,:,:]), torch.squeeze(out_test[:,:,:])))
+                vloss = torch.sqrt(loss_fn0(torch.squeeze(vy[:,:,:]), torch.squeeze(out_test[:,:,:])))
                 vloss1 = loss_fn1(torch.squeeze(vy[:,:,:]), torch.squeeze(out_test[:,:,:]))
             
 
-                logger.info(f"batch index: {vbatch_idx}, validation batch loss: {vloss}, rmse: {vloss1}")
+                logger.info(f"batch index: {vbatch_idx}, validation rmse: {vloss}, mae: {vloss1}")
             
                 vfeatures = []
                 vy = []
@@ -281,7 +291,7 @@ def model_supervisor(args):
                 v_idx = v_idx+1
             running_vloss = running_vloss/(vbatch_idx + 1)
             running_vloss1 = running_vloss1/(vbatch_idx + 1)
-        logger.info(f"validating loss. loss: {running_vloss1}, rmse: {running_vloss}")
+        logger.info(f"validating rmse: {running_vloss}, mae: {running_vloss}")
     
         PATH  = 'model_pytorch_pemsbay_new_e_se_1d_residual.pt'
 
@@ -312,7 +322,6 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
-
 
 
 
