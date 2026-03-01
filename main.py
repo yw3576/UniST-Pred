@@ -84,7 +84,10 @@ def model_supervisor(args):
 
     num_classes = num_link
 
-    w_in = 2
+    if data_name=='nyctaxi':
+        w_in = 1
+    else:
+        w_in = 2
 
     model = UniST_Pred(num_edge=num_edge,
             num_channels=num_channels,
@@ -322,6 +325,7 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
 
