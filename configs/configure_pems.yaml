@@ -6,6 +6,7 @@ w_out: 100
 feat_mixing_hidden_channels: 100
 no_mixer_layers: 4
 remove_self_loops: True
+reduction: 4
   
 #train:
 epochs: 50
