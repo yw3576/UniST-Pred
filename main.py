@@ -110,18 +110,6 @@ def model_supervisor(args):
             reduction=reduction
             )
 
-
-    pretrained = False
-    if pretrained:    
-        PATH  = 'model_pemsbay_new_e_se_1d_residual_smoothl1.pt'
-
-        model.load_state_dict(torch.load(PATH, weights_only=True))
-        model.to(DEVICE)
-    else:
-        model.to(DEVICE)
-
-    logger.info(f"Model: {model}")
-
     def initialize_weights(model):
         for m in model.modules():
             if isinstance(m, (torch.nn.Conv2d, nn.Linear)):
@@ -135,14 +123,24 @@ def model_supervisor(args):
             i    nit.constant_(m.bias.data, 0)
             
     #initialize_weights(model)
+    for param in model.parameters():
+        #shape = param.shape
+        #if len(shape)<2:
+        #    param = torch.unsqueeze(param,-1)    
+        #torch.nn.init.xavier_uniform_(param)
+        #param = torch.squeeze(param, -1)
+        torch.nn.init.uniform_(param, -1e-1, 1e-1)
+    
+    pretrained = False
+    if pretrained:    
+        PATH  = 'model_pemsbay_new_e_se_1d_residual_smoothl1.pt'
 
-for param in model.parameters():
-    #shape = param.shape
-    #if len(shape)<2:
-    #    param = torch.unsqueeze(param,-1)    
-    #torch.nn.init.xavier_uniform_(param)
-    #param = torch.squeeze(param, -1)
-    torch.nn.init.uniform_(param, -1e-1, 1e-1)
+        model.load_state_dict(torch.load(PATH, weights_only=True))
+        model.to(DEVICE)
+    else:
+        model.to(DEVICE)
+
+    logger.info(f"Model: {model}")
 
     def predict():
         for i in range(1):
@@ -349,6 +347,7 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
 
