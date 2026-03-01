@@ -150,15 +150,15 @@ def pemsbay(data_dir = '.../dataset/PEMS-Bay/', sequence_length = 2016, target_l
 
     inputs = np.array(X, dtype=np.uint8)
     targets = np.array(y, dtype=np.uint8)
-    new_X= np.repeat(pems_lanes, inputs.shape[0], axis=0)
+    new_X= np.tile(pems_lanes, (inputs.shape[0], 1))
     
     ind_pred = round(len(inputs)*0.8)
 
     X_pred = inputs[ind_pred:, :, :]
     y_pred = targets[ind_pred:, :, :]
-    new_X_pred = np.repeat(pems_lanes, X_pred.shape[0], axis=0)
-
-    temp = list(zip(inputs[:ind_pred,:,:], targets[:ind_pred,:,:], new_X[:,ind_pred]))
+    new_X_pred = np.tile(pems_lanes, (X_pred.shape[0], 1))
+    
+    temp = list(zip(inputs[:ind_pred,:,:], targets[:ind_pred,:,:], new_X[:ind_pred]))
     random.shuffle(temp)
     res1, res2, res3 = zip(*temp)
     res1, res2, res3 = list(res1), list(res2), list(res3)
