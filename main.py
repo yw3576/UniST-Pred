@@ -167,13 +167,13 @@ def model_supervisor(args):
         for t in range(target_length):
             vloss_total[t,0] = torch.sqrt((loss_fn0(torch.squeeze(y_test_all[:,t,:]), torch.squeeze(out_test_all[:,t,:]))))
                     
-            logger.info(f"prediction RMSE: {vloss_total}")
+        logger.info(f"prediction RMSE: {vloss_total}")
 
         vloss_total = torch.zeros((target_length, 1))
         for t in range(target_length):
             vloss_total[t,0] = ((loss_fn1(torch.squeeze(y_test_all[:,t,:]), torch.squeeze(out_test_all[:,t,:]))))
                     
-            logger.info(f"prediction mae: {vloss_total}")
+        logger.info(f"prediction mae: {vloss_total}")
 
 
     lr =float(args.learning_rate)
@@ -325,6 +325,7 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
 
