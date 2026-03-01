@@ -244,9 +244,9 @@ def nyctaxi(data_dir = '.../dataset/NYCTaxi/', sequence_length = 35, target_leng
     X_pred = np.load(data_dir+'test.npz')['x'][:,:,:,0]
     y_pred =np.load(data_dir+'test.npz')['y'][:,:,:,0]
     
-    new_X_train = None
-    new_X_test = None
-    new_X_pred = None
+    new_X_train = np.zeros((X_train.shape[0], X_train.shape[2]))
+    new_X_test = np.zeros((X_test.shape[0], X_test.shape[2]))
+    new_X_pred = np.zeros((X_pred.shape[0], X_pred.shape[2]))
     
     return X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train
 
