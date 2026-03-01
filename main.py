@@ -247,7 +247,7 @@ def model_supervisor(args):
             #torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=5)
             optimizer.step()
             
-            logger.info(f"batch index: {batch_idx}, batch loss: {loss}")
+            #logger.info(f"batch index: {batch_idx}, batch loss: {loss}")
             running_loss = running_loss + loss.detach().to('cpu')
         
             features = []
@@ -284,7 +284,7 @@ def model_supervisor(args):
                 vloss1 = loss_fn1(torch.squeeze(vy[:,:,:]), torch.squeeze(out_test[:,:,:]))
             
 
-                logger.info(f"batch index: {vbatch_idx}, validation rmse: {vloss}, mae: {vloss1}")
+                #logger.info(f"batch index: {vbatch_idx}, validation rmse: {vloss}, mae: {vloss1}")
             
                 vfeatures = []
                 vy = []
@@ -325,6 +325,7 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
 
