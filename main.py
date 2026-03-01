@@ -122,6 +122,28 @@ def model_supervisor(args):
 
     logger.info(f"Model: {model}")
 
+    def initialize_weights(model):
+        for m in model.modules():
+            if isinstance(m, (torch.nn.Conv2d, nn.Linear)):
+                # Apply Kaiming Uniform for ReLU, Xavier for others (example)
+                if m.weight.data.shape[0] > 0: # Check if weights exist
+                    init.kaiming_uniform_(m.weight.data, nonlinearity='relu')
+                if m.bias is not None:
+                    init.constant_(m.bias.data, 0)
+            elif isinstance(m, nn.BatchNorm2d):
+                init.constant_(m.weight.data, 1)
+            i    nit.constant_(m.bias.data, 0)
+            
+    #initialize_weights(model)
+
+for param in model.parameters():
+    #shape = param.shape
+    #if len(shape)<2:
+    #    param = torch.unsqueeze(param,-1)    
+    #torch.nn.init.xavier_uniform_(param)
+    #param = torch.squeeze(param, -1)
+    torch.nn.init.uniform_(param, -1e-1, 1e-1)
+
     def predict():
         for i in range(1):
         
@@ -327,6 +349,7 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
 
