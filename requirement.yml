@@ -1,1 +1,12 @@
-
+python=3.9.23
+numpy=1.26.4
+pandas=2.3.2
+torch=2.1.0
+torch-cluster=1.6.3
+torch-scatter=2.1.2
+torch-sparse=0.6.18
+torch-spline-conv=1.2.2
+tensorboard=2.15.2
+easy-torch=1.2.11
+easydict=3.5.3
+torch-geometric=2.6.1
