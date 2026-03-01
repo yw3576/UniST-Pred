@@ -1,1 +1,1 @@
-python main.py --config_filename=configs/$1.yaml
+python main.py --config_filename=configs/$2.yaml
