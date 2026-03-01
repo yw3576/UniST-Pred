@@ -6,6 +6,7 @@ w_out: 100
 feat_mixing_hidden_channels: 100
 no_mixer_layers: 2
 remove_self_loops: True
+reduction: 2
   
 #train:
 epochs: 50
@@ -20,6 +21,7 @@ used_link: 7709
 dataset: 'traffci'
 
  
+
 
 
 
