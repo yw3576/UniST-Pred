@@ -185,7 +185,7 @@ def model_supervisor(args):
     optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay, betas=betas)
     logger.info(f"learning rate: {lr}")
 
-    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[10, 50], gamma=0.1)
+    scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=[20, 50], gamma=0.1)
 
     Ws = []
     
@@ -327,6 +327,7 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
 
