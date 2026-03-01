@@ -99,7 +99,7 @@ class UniST_Pred(nn.Module):
     """Include Reversible instance normalization https://openreview.net/pdf?id=cGDAkQo1C0p
     """    
 
-    def __init__(self, num_edge, num_channels, w_in, w_out, num_class, num_nodes, num_layers, args, input_length: int, forecast_length: int, no_feats: int, feat_mixing_hidden_channels: int, no_mixer_layers: int,  dropout: float, eps: float = 1e-8):
+    def __init__(self, num_edge, num_channels, w_in, w_out, num_class, num_nodes, num_layers, args, input_length: int, forecast_length: int, no_feats: int, feat_mixing_hidden_channels: int, no_mixer_layers: int,  dropout: float, eps: float = 1e-8, reduction: int=2):
         super(UniST_Pred, self).__init__()
         self.gtn = GTN(num_edge=num_edge,
                     num_channels=num_channels,
@@ -127,7 +127,7 @@ class UniST_Pred(nn.Module):
         #self.final = nn.Linear(2,1)
         self.ratio = nn.Parameter(torch.zeros(1))
         
-        self.residual = FusionSE24(channels=1+self.forecast_length, groups=1+self.forecast_length)
+        self.residual = FusionSE24(channels=1+self.forecast_length, groups=1+self.forecast_length, se_reduction=reduction)
         self.w_in = w_in
         self.final = nn.Linear(1+self.forecast_length, self.forecast_length)
         #self.final = nn.Linear(13, 1)
@@ -182,4 +182,5 @@ class UniST_Pred(nn.Module):
         return out_total
 
         
+
 
