@@ -51,6 +51,7 @@ def model_supervisor(args):
     feat_mixing_hidden_channels = int(args.feat_mixing_hidden_channels)
     no_mixer_layers = int(args.no_mixer_layers)
     data_name = args.name
+    reduction=int(args.reduction)
 
     X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = dataloader(data_name, sequence_length, target_length)
 
@@ -105,7 +106,8 @@ def model_supervisor(args):
             no_feats=num_link,
             feat_mixing_hidden_channels=feat_mixing_hidden_channels,
             no_mixer_layers=no_mixer_layers,
-            dropout=0.2
+            dropout=0.2,
+            reduction=reduction
             )
 
 
@@ -325,6 +327,7 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
 
