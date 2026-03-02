@@ -55,7 +55,7 @@ def model_supervisor(args):
 
     X_train, y_train, new_X_train, X_test, y_test, new_X_test, X_pred, y_pred, new_X_pred, A_train = dataloader(data_name, sequence_length, target_length)
 
-    train_dataset = torch.utils.data.TensorDataset(torch.tensor(X_train, dtype=torch.uint8), torch.tensor(y_train, dtype=torch.uint8), torch.tensor(new_X_train, dtype=torch.uint8))
+    train_dataset = torch.utils.data.TensorDataset(torch.tensor(X_train), torch.tensor(y_train), torch.tensor(new_X_train))
     train_loader = torch.utils.data.DataLoader(
         train_dataset,
         batch_size=batch_size,
@@ -347,6 +347,7 @@ if __name__=='__main__':
     model_supervisor(args)    
     
     
+
 
 
 
