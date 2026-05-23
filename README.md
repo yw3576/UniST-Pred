@@ -17,6 +17,8 @@ please run the following commands to train the model on the specific configure f
 ```
 
 ## Data
+<img src="figures/dataset_details.png" alt="TheTable" />
+
 You can download the data at [Google drive](https://drive.google.com/drive/folders/1n5gpZINmXJ_02YF7jSP_IHqmXffVyien?usp=drive_link) and put the data in the `dataset/` folder
 ### SimSF-Bay
 ```
