@@ -52,7 +52,7 @@ You can download the data at [Google drive](https://drive.google.com/drive/folde
 
 ## Configuration
 
-
+<img src="figures/model_details.png" alt="TheTable" />
 
 Configs are stored in `configs/` (YAML). Sections include:
 
