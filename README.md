@@ -55,3 +55,9 @@ Configs are stored in `configs/` (YAML). Sections include:
 - `model`: architecture
 - `data`: sequence length, target length, nodes
 - `train`: learning-rate schedule, epochs, batch size
+
+## Benchmarks
+ARIMA is implemented via statsmodels python package. LSTM is implemented from Pytorch Neural Networks package. 
+Other benchmarks are implemented via the code provided in their project repositories: 
+[TCN](https://github.com/colincsl/TemporalConvolutionalNetworks), [TSMixer](https://github.com/smrfeld/tsmixer-pytorch?tab=readme-ov-file), [STGCN](https://github.com/hazdzz/stgcn?tab=readme-ov-file), [ASTGCN](https://github.com/wanhuaiyu/ASTGCN), [ST-SSL](https://github.com/Echo-Ji/ST-SSL), [DCRNN](https://github.com/liyaguang/DCRNN), and [STEP](https://github.com/GestaltCogTeam/STEP)
+
